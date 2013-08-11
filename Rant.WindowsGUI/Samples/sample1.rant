@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<script name="Sample Rant Script 1">
+  <description>Sample Rant script demonstrating basic features. This is the "Hello world" for Rant!</description>
+  <steps>
+    <step name="Say Hello world" task="Echo" required="true">
+      <description>Say 'Hello!' to the world out there.</description>
+      <parameters>
+        <parameter name="message">Hello world!</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>
