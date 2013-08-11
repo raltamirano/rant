@@ -38,7 +38,9 @@ namespace Rant.Core.ScriptReaders
                 foreach (XmlNode stepNode in xml.DocumentElement.SelectNodes("steps/step"))
                 {
                     String stepName = stepNode.Attributes["name"].Value;
-                    String stepDescription = stepNode.SelectSingleNode("description/text()").Value;
+                    String stepDescription = String.Empty;
+                    if (stepNode.SelectSingleNode("description/text()") != null)
+                        stepDescription = stepNode.SelectSingleNode("description/text()").Value;
                     String taskName = stepNode.Attributes["task"].Value;
                     bool required = Boolean.Parse(stepNode.Attributes["required"].Value);
 

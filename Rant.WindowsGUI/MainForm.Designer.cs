@@ -36,6 +36,8 @@
             this.logColumnText = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chkLogExecutionToFile = new System.Windows.Forms.CheckBox();
             this.chkConfirmationOnEveryStep = new System.Windows.Forms.CheckBox();
+            this.chkScrollToNewLogItems = new System.Windows.Forms.CheckBox();
+            this.chkClearLogOnEveryScriptRun = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdRun
@@ -115,11 +117,37 @@
             this.chkConfirmationOnEveryStep.Text = "Confirmation on every step";
             this.chkConfirmationOnEveryStep.UseVisualStyleBackColor = true;
             // 
+            // chkScrollToNewLogItems
+            // 
+            this.chkScrollToNewLogItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkScrollToNewLogItems.AutoSize = true;
+            this.chkScrollToNewLogItems.Checked = true;
+            this.chkScrollToNewLogItems.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkScrollToNewLogItems.Location = new System.Drawing.Point(191, 260);
+            this.chkScrollToNewLogItems.Name = "chkScrollToNewLogItems";
+            this.chkScrollToNewLogItems.Size = new System.Drawing.Size(131, 17);
+            this.chkScrollToNewLogItems.TabIndex = 6;
+            this.chkScrollToNewLogItems.Text = "Scroll to new log items";
+            this.chkScrollToNewLogItems.UseVisualStyleBackColor = true;
+            // 
+            // chkClearLogOnEveryScriptRun
+            // 
+            this.chkClearLogOnEveryScriptRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkClearLogOnEveryScriptRun.AutoSize = true;
+            this.chkClearLogOnEveryScriptRun.Location = new System.Drawing.Point(191, 242);
+            this.chkClearLogOnEveryScriptRun.Name = "chkClearLogOnEveryScriptRun";
+            this.chkClearLogOnEveryScriptRun.Size = new System.Drawing.Size(157, 17);
+            this.chkClearLogOnEveryScriptRun.TabIndex = 5;
+            this.chkClearLogOnEveryScriptRun.Text = "Clear log on every script run";
+            this.chkClearLogOnEveryScriptRun.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 282);
+            this.Controls.Add(this.chkScrollToNewLogItems);
+            this.Controls.Add(this.chkClearLogOnEveryScriptRun);
             this.Controls.Add(this.chkConfirmationOnEveryStep);
             this.Controls.Add(this.chkLogExecutionToFile);
             this.Controls.Add(this.lvwLog);
@@ -143,6 +171,8 @@
         private System.Windows.Forms.ColumnHeader logColumnText;
         private System.Windows.Forms.CheckBox chkLogExecutionToFile;
         private System.Windows.Forms.CheckBox chkConfirmationOnEveryStep;
+        private System.Windows.Forms.CheckBox chkScrollToNewLogItems;
+        private System.Windows.Forms.CheckBox chkClearLogOnEveryScriptRun;
     }
 }
 

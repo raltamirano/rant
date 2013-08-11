@@ -41,6 +41,8 @@ namespace Rant.Core.Tasks
                 task = new FailTask();
             else if (taskName == BuiltinTasks.DumpEnvironment.ToString().ToLower())
                 task = new DumpEnvironmentTask();
+            else if (taskName == BuiltinTasks.FileCopy.ToString().ToLower())
+                task = new FileCopyTask();
             else
                 throw new NotImplementedException("No generic task instantiation process yet!");
 
@@ -108,6 +110,11 @@ namespace Rant.Core.Tasks
         /// <summary>
         /// Prints all environment variables to stdout.
         /// </summary>
-        DumpEnvironment
+        DumpEnvironment,
+
+        /// <summary>
+        /// Copy a single file to a target directory or file.
+        /// </summary>
+        FileCopy
     }
 }

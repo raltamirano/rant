@@ -49,8 +49,9 @@
     <Compile Include="Script.cs" />
     <Compile Include="ScriptBuilder.cs" />
     <Compile Include="ScriptRunners\ScriptRunnerFactory.cs" />
+    <Compile Include="Tasks\FileCopyTask.cs" />
     <Compile Include="Tasks\TaskFactory.cs" />
-    <Compile Include="Tasks\DumpEnvironment.cs" />
+    <Compile Include="Tasks\DumpEnvironmentTask.cs" />
     <Compile Include="Tasks\EchoTask.cs" />
     <Compile Include="Tasks\FailTask.cs" />
   </ItemGroup>

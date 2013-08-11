@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+  This sample script is not fool-proof. It uses some test files and/or directories to run properly.
+  Please read the entire script first, setup your environment accordingly and we're set. Thank you!
+-->
+<script name="Sample Rant Script 1">
+  <description>File Copy task sample script.</description>
+  <steps>
+    <step name="Copy a file to a target file. No overwrite requested." task="FileCopy" required="false">
+      <parameters>
+        <parameter name="source">c:\temp\file1.txt</parameter>
+        <parameter name="target">c:\temp\file2.txt</parameter>
+        <parameter name="targetIsDirectory">false</parameter>
+        <parameter name="overwrite">false</parameter>
+      </parameters>
+    </step>
+    <step name="Copy a file to a target directory. No overwrite requested." task="FileCopy" required="false">
+      <parameters>
+        <parameter name="source">c:\temp\file1.txt</parameter>
+        <parameter name="target">c:\temp\test</parameter>
+        <parameter name="targetIsDirectory">true</parameter>
+        <parameter name="overwrite">false</parameter>
+      </parameters>
+    </step>
+    <step name="Copy a file to a target file. Overwrite requested." task="FileCopy" required="false">
+      <parameters>
+        <parameter name="source">c:\temp\file1.txt</parameter>
+        <parameter name="target">c:\temp\file3.txt</parameter>
+        <parameter name="targetIsDirectory">false</parameter>
+        <parameter name="overwrite">true</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>

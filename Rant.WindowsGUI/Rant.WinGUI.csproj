@@ -76,6 +76,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Samples\sample2.rant">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Samples\sample1.rant">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

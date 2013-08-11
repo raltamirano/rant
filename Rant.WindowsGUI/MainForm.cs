@@ -26,10 +26,13 @@ namespace Rant.WinGUI
 
         private void cmdRun_Click(object sender, EventArgs e)
         {
+            if (chkClearLogOnEveryScriptRun.Checked)
+                lvwLog.Items.Clear();
+
             IScript script = null;
 
             //script = getSampleScript();
-            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample1.rant").Read();
+            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample2.rant").Read();
 
             runScript(script);
         }
@@ -120,6 +123,9 @@ namespace Rant.WinGUI
             item.ForeColor = textColor;
             item.SubItems.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")).ForeColor = textColor;
             item.SubItems.Add(text).ForeColor = textColor;
+
+            if (chkScrollToNewLogItems.Checked)
+                item.EnsureVisible();
         }
 
         void script_ScriptStarting(IScript script)
