@@ -3,7 +3,7 @@
   This sample script is not fool-proof. It uses some test files and/or directories to run properly.
   Please read the entire script first, setup your environment accordingly and we're set. Thank you!
 -->
-<script name="Sample Rant Script 1">
+<script name="Sample Rant Script 2">
   <description>File Copy task sample script.</description>
   <steps>
     <step name="Copy a file to a target file. No overwrite requested." task="FileCopy" required="false">
