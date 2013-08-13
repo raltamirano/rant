@@ -113,10 +113,10 @@ namespace Rant.Core
                                 throw new RequiredStepNotExecutedException(step);
                         }
                     }
-                    catch (RequiredStepNotExecutedException requiredStepException) 
+                    catch (RequiredStepNotExecutedException) 
                     {
                         // Can't continue with script execution if a required step was not executed.
-                        throw requiredStepException;
+                        throw;
                     }
                     catch (Exception exception)
                     {
@@ -128,6 +128,9 @@ namespace Rant.Core
 
                         if (StepError != null)
                             StepError(step, exception);
+
+                        if (step.Required)
+                            throw new RequiredStepNotExecutedException(step);
                     }
                     finally
                     {

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+  This sample script is not fool-proof. It uses a standard SQL Server installation with standard settings to run 
+  properly. Please read the entire script first, setup your environment accordingly and we're set. Thank you!
+-->
+<script name="Sample Rant Script 3">
+  <description>Sample Rant script demonstrating the SQL Server script task.</description>
+  <steps>
+    <step name="Run embbeded script" task="SQLServerScript" required="true">
+      <description>Run embbeded script.</description>
+      <parameters>
+        <parameter name="connectionString">Server=.\sqlexpress;Database=master;Trusted_Connection=True;</parameter>
+        <parameter name="script">SELECT GETDATE()</parameter>
+        <parameter name="useAsFile">false</parameter>
+        <parameter name="timeout">10</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>

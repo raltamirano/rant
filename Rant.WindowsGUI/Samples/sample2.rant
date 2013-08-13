@@ -6,7 +6,7 @@
 <script name="Sample Rant Script 2">
   <description>File Copy task sample script.</description>
   <steps>
-    <step name="Copy a file to a target file. No overwrite requested." task="FileCopy" required="false">
+    <step name="Copy a file to a target file. No overwrite requested." task="FileCopy" required="true">
       <parameters>
         <parameter name="source">c:\temp\file1.txt</parameter>
         <parameter name="target">c:\temp\file2.txt</parameter>

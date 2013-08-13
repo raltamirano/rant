@@ -50,6 +50,7 @@
     <Compile Include="ScriptBuilder.cs" />
     <Compile Include="ScriptRunners\ScriptRunnerFactory.cs" />
     <Compile Include="Tasks\FileCopyTask.cs" />
+    <Compile Include="Tasks\SQLServerScriptTask.cs" />
     <Compile Include="Tasks\TaskFactory.cs" />
     <Compile Include="Tasks\DumpEnvironmentTask.cs" />
     <Compile Include="Tasks\EchoTask.cs" />

@@ -43,6 +43,8 @@ namespace Rant.Core.Tasks
                 task = new DumpEnvironmentTask();
             else if (taskName == BuiltinTasks.FileCopy.ToString().ToLower())
                 task = new FileCopyTask();
+            else if (taskName == BuiltinTasks.SQLServerScript.ToString().ToLower())
+                task = new SQLServerScriptTask();
             else
                 throw new NotImplementedException("No generic task instantiation process yet!");
 
@@ -115,6 +117,11 @@ namespace Rant.Core.Tasks
         /// <summary>
         /// Copy a single file to a target directory or file.
         /// </summary>
-        FileCopy
+        FileCopy,
+
+        /// <summary>
+        /// Executes a SQL Server script against the specified database.
+        /// </summary>
+        SQLServerScript
     }
 }

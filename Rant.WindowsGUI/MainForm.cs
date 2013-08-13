@@ -32,7 +32,7 @@ namespace Rant.WinGUI
             IScript script = null;
 
             //script = getSampleScript();
-            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample2.rant").Read();
+            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample3.rant").Read();
 
             runScript(script);
         }
