@@ -23,7 +23,7 @@ namespace Rant.Common
         /// <summary>
         /// Executes this task.
         /// </summary>
-        void Execute();
+        void Execute(IScriptExecutionContext context);
 
         /// <summary>
         /// Gives a task the ability to set its first parameter's value.

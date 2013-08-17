@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractScriptExecutionContext.cs" />
     <Compile Include="AbstractScriptRunner.cs" />
     <Compile Include="AbstractTask.cs" />
     <Compile Include="Exceptions\RequiredStepNotExecutedException.cs" />
     <Compile Include="IScript.cs" />
+    <Compile Include="IScriptExecutionContext.cs" />
     <Compile Include="IScriptReader.cs" />
     <Compile Include="IScriptRunner.cs" />
     <Compile Include="IScriptRunnerDecorator.cs" />

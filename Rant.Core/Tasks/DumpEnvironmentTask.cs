@@ -17,7 +17,7 @@ namespace Rant.Core.Tasks
         public DumpEnvironmentTask() : base(TASK_NAME) { }
         public DumpEnvironmentTask(IDictionary<String, String> parameters) : base(TASK_NAME, parameters) { }
 
-        public override void Execute()
+        public override void Execute(IScriptExecutionContext context)
         {
             IDictionary environment = Environment.GetEnvironmentVariables();
             foreach (Object key in environment.Keys)

@@ -11,6 +11,12 @@ namespace Rant.Core.ScriptRunners
     /// </summary>
     public class DefaultScriptRunner : AbstractScriptRunner
     {
+        public DefaultScriptRunner(IScriptExecutionContext context) :
+            base(context)
+        {
+
+        }
+
         public override bool ScriptStarting(IScript script)
         {
             return true;
@@ -18,9 +24,15 @@ namespace Rant.Core.ScriptRunners
 
         public override bool StepRun(Step step)
         {
-            step.Execute();
-
+            step.Execute(Context);
+            
             return true;
         }
+
+        public override object RequestInput(string prompt)
+        {
+            return null;
+        }
+
     }
 }

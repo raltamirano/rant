@@ -47,6 +47,6 @@ namespace Rant.Common
             get { return firstParameterName; }
         }
 
-        public abstract void Execute();
+        public abstract void Execute(IScriptExecutionContext context);
     }
 }

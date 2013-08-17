@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Rant.Common;
+using System.Text.RegularExpressions;
 
 namespace Rant.Core.ScriptRunners.Decorators
 {
     /// <summary>
-    /// Abstract script runner decorator that ask for confirmation before executing the script and/or every step.
+    /// This decorator maps/replaces placeholders in the step's parameters with values from the script 
+    /// runner's context BEFORE the step is actually executed.
     /// </summary>
-    public abstract class AskConfirmationDecorator : IScriptRunnerDecorator
+    public class ContextToParameterDecorator : IScriptRunnerDecorator
     {
+        private const String VARIABLE_PLACEHOLDER = @"\$\{\{(?<varName>.+)\}\}";
+        
         private readonly IScriptRunner scriptRunner;
-        private readonly String confirmMessage;
 
-        public AskConfirmationDecorator(IScriptRunner scriptRunner, String confirmMessage)
+        public ContextToParameterDecorator(IScriptRunner scriptRunner)
         {
             this.scriptRunner = scriptRunner;
-            this.confirmMessage = confirmMessage;
         }
-
-        public String ConfirmMessage
-        {
-            get { return confirmMessage; }
-        }
-
+        
         public IScriptExecutionContext Context
         {
             get { return scriptRunner.Context; }
@@ -33,10 +30,7 @@ namespace Rant.Core.ScriptRunners.Decorators
 
         public bool ScriptStarting(IScript script)
         {
-            if (AskConfirmation(String.Format("Start script '{0}'", script.Name)))
-                return scriptRunner.ScriptStarting(script);
-            else
-                return false;
+            return scriptRunner.ScriptStarting(script);
         }
 
         public void ScriptFinished(IScript script, bool withErrors)
@@ -51,15 +45,30 @@ namespace Rant.Core.ScriptRunners.Decorators
 
         public void BeforeStepRun(Step step)
         {
+            IDictionary<String, String> replacements = new Dictionary<String, String>();
+            foreach(String key in step.Task.Parameters.Keys) {
+                String currentValue = step.Task.Parameters[key];
+                if (currentValue != null)
+                {
+                    foreach (Match match in Regex.Matches(currentValue, VARIABLE_PLACEHOLDER))
+                    {
+                        String variableName = match.Groups["varName"].Value;
+                        currentValue = currentValue.Replace("${{" + variableName + "}}", Context.GetVariable<Object>(variableName) != null ? Context.GetVariable<Object>(variableName).ToString() : "");
+                    }
+
+                    replacements.Add(key, currentValue);
+                }
+            }
+
+            foreach(String key in replacements.Keys)
+                step.Task.Parameters[key] = replacements[key];
+            
             scriptRunner.BeforeStepRun(step);
         }
 
         public bool StepRun(Step step)
         {
-            if (AskConfirmation(step.Name))
-                return scriptRunner.StepRun(step);
-            else
-                return false;
+            return scriptRunner.StepRun(step);
         }
 
         public void AfterStepRun(Step step, bool withError)
@@ -72,7 +81,10 @@ namespace Rant.Core.ScriptRunners.Decorators
             scriptRunner.StepError(step, exception);
         }
 
-        public abstract bool AskConfirmation(string item);
+        public bool AskConfirmation(string item)
+        {
+            return scriptRunner.AskConfirmation(item);
+        }
 
         public object RequestInput(string prompt)
         {

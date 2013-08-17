@@ -55,9 +55,9 @@ namespace Rant.Common
             get { return required; }
         }
 
-        public void Execute()
+        public void Execute(IScriptExecutionContext context)
         {
-            task.Execute();
+            task.Execute(context);
         }
     }
 }

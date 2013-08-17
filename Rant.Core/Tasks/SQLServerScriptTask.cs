@@ -20,7 +20,7 @@ namespace Rant.Core.Tasks
         public SQLServerScriptTask() : base(TASK_NAME) { base.firstParameterName = FIRST_PARAMETER_NAME; }
         public SQLServerScriptTask(IDictionary<String, String> parameters) : base(TASK_NAME, parameters) { base.firstParameterName = FIRST_PARAMETER_NAME; }
 
-        public override void Execute()
+        public override void Execute(IScriptExecutionContext context)
         {
             // The script to be executed.
             String script = Parameters["script"];

@@ -32,7 +32,7 @@ namespace Rant.WinGUI
             IScript script = null;
 
             //script = getSampleScript();
-            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample3.rant").Read();
+            script = ScriptReaderFactory.Instance.CreateFileReader(@".\Samples\sample6.rant").Read();
 
             runScript(script);
         }
@@ -56,6 +56,9 @@ namespace Rant.WinGUI
 
                 if (chkConfirmationOnEveryStep.Checked)
                     scriptRunner = new WinFormsAskConfirmationDecorator(scriptRunner, "Do you confirm execution of: '{0}'?");
+
+                // Adds the Winforms, GUI-based input variable requester.
+                scriptRunner = new WinFormsRequestInputParameterDecorator(scriptRunner);
 
                 script.Execute(scriptRunner);
             }

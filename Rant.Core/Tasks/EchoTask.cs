@@ -17,7 +17,7 @@ namespace Rant.Core.Tasks
         public EchoTask() : base(TASK_NAME) { base.firstParameterName = FIRST_PARAMETER_NAME; }
         public EchoTask(IDictionary<String, String> parameters) : base(TASK_NAME, parameters) { base.firstParameterName = FIRST_PARAMETER_NAME; }
 
-        public override void Execute()
+        public override void Execute(IScriptExecutionContext context)
         {
             Console.WriteLine(FirstParameter);
         }

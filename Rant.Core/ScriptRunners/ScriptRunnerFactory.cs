@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Rant.Common;
 using Rant.Core.ScriptRunners;
+using Rant.Core.ScriptExecutionContexts;
+using Rant.Core.ScriptRunners.Decorators;
 
 namespace Rant.Core.ScriptRunners
 {
@@ -23,7 +25,13 @@ namespace Rant.Core.ScriptRunners
 
         public IScriptRunner GetDefaultScriptRunner()
         {
-            return new DefaultScriptRunner();
+            IScriptRunner scriptRunner = new DefaultScriptRunner(ScriptExecutionContextFactory.Instance.GetDefaultScriptExecutionContext());
+
+            // Apply the context-to-parameter decorator: it replaces variable placeholders in 
+            // every step' paramters with values from the script runner's context.
+            scriptRunner = new ContextToParameterDecorator(scriptRunner);
+
+            return scriptRunner;
         }
     }
 }

@@ -10,33 +10,61 @@ namespace Rant.Common
     /// </summary>
     public abstract class AbstractScriptRunner : IScriptRunner
     {
+        private IScriptExecutionContext context;
+
+        public AbstractScriptRunner(IScriptExecutionContext context)
+        {
+            this.context = context;
+        }
+
+        public virtual IScriptExecutionContext Context
+        {
+            get { return context; }
+            set { context = value; }
+        }
+
         public abstract bool ScriptStarting(IScript script);
 
-        public void ScriptFinished(IScript script, bool withErrors)
+        public virtual void ScriptFinished(IScript script, bool withErrors)
         {
         }
 
-        public void ScriptError(IScript script, Exception exception)
+        public virtual void ScriptError(IScript script, Exception exception)
         {
         }
-        
-        public void BeforeStepRun(Step step)
+
+        public virtual void BeforeStepRun(Step step)
         {
         }
 
         public abstract bool StepRun(Step step);
 
-        public void AfterStepRun(Step step, bool withError)
+        public virtual void AfterStepRun(Step step, bool withError)
         {
         }
 
-        public void StepError(Step step, Exception exception)
+        public virtual void StepError(Step step, Exception exception)
         {
         }
 
-        public bool AskConfirmation(string item)
+        public virtual bool AskConfirmation(string item)
         {
             return true;
+        }
+
+        public abstract object RequestInput(string prompt);
+
+        public virtual object RequestInput(string prompt, object defaultValue)
+        {
+            try
+            {
+                object value = RequestInput(prompt);
+                return (value == null) ? defaultValue : value;
+            }
+            catch 
+            {
+                return defaultValue;
+            }
         }
     }
 }

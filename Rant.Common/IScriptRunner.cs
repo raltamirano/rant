@@ -11,6 +11,11 @@ namespace Rant.Common
     public interface IScriptRunner
     {
         /// <summary>
+        /// Script execution context.
+        /// </summary>
+        IScriptExecutionContext Context { get; set;  }
+
+        /// <summary>
         /// Asks this script runner to begin executing a script.
         /// </summary>
         bool ScriptStarting(IScript script);
@@ -49,5 +54,18 @@ namespace Rant.Common
         /// Ask confirmation on a certain proposition to the environment of this script runner.
         /// </summary>
         bool AskConfirmation(string item);
+
+        /// <summary>
+        /// Request the "client" (usually a human interacting with this API by means of an interactive script runner)
+        /// to provide some data.
+        /// </summary>
+        object RequestInput(String prompt);
+
+        /// <summary>
+        /// Request the "client" (usually a human interacting with this API by means of an interactive script runner)
+        /// to provide some data.
+        /// </summary>
+        object RequestInput(String prompt, object defaultValue);
+
     }
 }

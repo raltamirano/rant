@@ -5,12 +5,13 @@ using System.Text;
 using Rant.Common;
 using Rant.Core.ScriptRunners;
 using Rant.Common.Exceptions;
+using System.Transactions;
+using Rant.Core.ScriptExecutionContexts;
 
 namespace Rant.Core
 {
     /// <summary>
     /// RANT Script class. A script is a collection of configured steps to be executed in order to acomplish a certain goal. 
-    /// A script implements <see cref="ITask" />, so a script could be used as a step on another script.
     /// </summary>
     public class Script : IScript
     {
@@ -26,6 +27,7 @@ namespace Rant.Core
         private readonly String description;
         private readonly IList<Step> steps;
         private readonly IDictionary<String, String> parameters;
+        private bool scriptWithErrors = false;
         
         public Script(String name, String description)
         {
@@ -72,16 +74,32 @@ namespace Rant.Core
         {
             Execute(ScriptRunnerFactory.Instance.GetDefaultScriptRunner());
         }
-        
-        public void Execute(IScriptRunner runner)
+
+        public void Execute(IScriptRunner scriptRunner)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                internalExecution(scriptRunner);
+
+                if (LastRunWasSuccessful) 
+                    transaction.Complete();
+            }
+        }
+
+        public bool LastRunWasSuccessful
+        {
+            get { return !scriptWithErrors; }
+        }
+
+        private void internalExecution(IScriptRunner scriptRunner)
         {
             Step step = null;
             bool stepWithError = false;
-            bool scriptWithErrors = false;
-
+            
+            scriptWithErrors = false;
             try
             {
-                if (!runner.ScriptStarting(this))
+                if (!scriptRunner.ScriptStarting(this))
                     throw new Exception("Script runner decided NOT to start executing this script.");
 
                 if (ScriptStarting != null)
@@ -94,12 +112,12 @@ namespace Rant.Core
 
                     try
                     {
-                        runner.BeforeStepRun(step);
+                        scriptRunner.BeforeStepRun(step);
 
                         if (StepStarting != null)
                             StepStarting(step);
 
-                        if (runner.StepRun(step))
+                        if (scriptRunner.StepRun(step))
                         {
                             if (StepFinished != null)
                                 StepFinished(step);
@@ -113,7 +131,7 @@ namespace Rant.Core
                                 throw new RequiredStepNotExecutedException(step);
                         }
                     }
-                    catch (RequiredStepNotExecutedException) 
+                    catch (RequiredStepNotExecutedException)
                     {
                         // Can't continue with script execution if a required step was not executed.
                         throw;
@@ -124,7 +142,7 @@ namespace Rant.Core
 
                         stepWithError = true;
 
-                        runner.StepError(step, exception);
+                        scriptRunner.StepError(step, exception);
 
                         if (StepError != null)
                             StepError(step, exception);
@@ -134,26 +152,26 @@ namespace Rant.Core
                     }
                     finally
                     {
-                        runner.AfterStepRun(step, stepWithError);
+                        scriptRunner.AfterStepRun(step, stepWithError);
                     }
                 }
             }
             catch (Exception exception)
             {
                 scriptWithErrors = true;
-                
-                runner.ScriptError(this, exception);
+
+                scriptRunner.ScriptError(this, exception);
 
                 if (ScriptError != null)
                     ScriptError(this, exception);
             }
             finally
             {
-                runner.ScriptFinished(this, scriptWithErrors);
+                scriptRunner.ScriptFinished(this, scriptWithErrors);
 
                 if (ScriptFinished != null)
                     ScriptFinished(this, scriptWithErrors);
-            }
+            }        
         }
     }
 }

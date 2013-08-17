@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<script name="Sample Rant Script 5">
+  <description>Sample Rant script demonstrating user/environment input variable replacement on step's parameters.</description>
+  <steps>
+    <step name="Say 'Hello' to a certain person" task="Echo" required="true">
+      <description>Prints a greeting to a certain person, as specified by an user.</description>
+      <parameters>
+        <parameter name="message">Hello, ${INPUT{PERSON_NAME}}!</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>

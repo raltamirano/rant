@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+  This sample script is not fool-proof. It uses a standard SQL Server installation with standard settings to run 
+  properly. It also requires a DB called 'testdb' and a table called 'Item', with some specific column names and 
+  datatypes. Please read the entire script first, setup your environment accordingly and we're set. Thank you!
+-->
+<script name="Sample Rant Script 4">
+  <description>Sample Rant script demonstrating the SQL Server script task in a transactional context.</description>
+  <steps>
+    <step name="Delete all existing items" task="SQLServerScript" required="true">
+      <description>Delete all existing rows in the table 'Item'.</description>
+      <parameters>
+        <parameter name="connectionString">Server=.\sqlexpress;Database=testdb;Trusted_Connection=True;</parameter>
+        <parameter name="script">DELETE FROM Item</parameter>
+        <parameter name="useAsFile">false</parameter>
+        <parameter name="timeout">10</parameter>
+      </parameters>
+    </step>
+    <step name="Insert 1" task="SQLServerScript" required="true">
+      <description>Insert 1.</description>
+      <parameters>
+        <parameter name="connectionString">Server=.\sqlexpress;Database=testdb;Trusted_Connection=True;</parameter>
+        <parameter name="script">INSERT INTO Item (ItemID, Description) VALUES (1, 'Item 1')</parameter>
+        <parameter name="useAsFile">false</parameter>
+        <parameter name="timeout">10</parameter>
+      </parameters>
+    </step>
+    <step name="Insert 2" task="SQLServerScript" required="true">
+      <description>Insert 2. If 'ItemID' is set as a PK for the 'Item' table, this second insert should fail with a
+      PK violation error (because ItemID==1, again). You can check that neither this insert not the previous one were 
+      recorded in the DB, as every script runs in a transaction.</description>
+      <parameters>
+        <parameter name="connectionString">Server=.\sqlexpress;Database=testdb;Trusted_Connection=True;</parameter>
+        <parameter name="script">INSERT INTO Item (ItemID, Description) VALUES (1, 'Item 2')</parameter>
+        <parameter name="useAsFile">false</parameter>
+        <parameter name="timeout">10</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>

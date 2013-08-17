@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<script name="Sample Rant Script 5">
+  <description>Sample Rant script demonstrating context variable replacement on step's parameters.</description>
+  <steps>
+    <step name="Prints your current TEMP context variable value" task="Echo" required="true">
+      <description>Prints your current TEMP context variable value (Usually your temp directory on Windows)</description>
+      <parameters>
+        <parameter name="message">TEMP = ${{TEMP}}</parameter>
+      </parameters>
+    </step>
+  </steps>
+</script>

@@ -6,8 +6,8 @@
 <script name="Sample Rant Script 3">
   <description>Sample Rant script demonstrating the SQL Server script task.</description>
   <steps>
-    <step name="Run embbeded script" task="SQLServerScript" required="true">
-      <description>Run embbeded script.</description>
+    <step name="Run embedded script" task="SQLServerScript" required="true">
+      <description>Run embedded script.</description>
       <parameters>
         <parameter name="connectionString">Server=.\sqlexpress;Database=master;Trusted_Connection=True;</parameter>
         <parameter name="script">SELECT GETDATE()</parameter>

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScriptExecutionContexts\DefaultScriptExecutionContext.cs" />
+    <Compile Include="ScriptExecutionContexts\ScriptExecutionContextFactory.cs" />
     <Compile Include="ScriptReaders\FileScriptReader.cs" />
     <Compile Include="ScriptReaders\ScriptReaderFactory.cs" />
     <Compile Include="ScriptRunners\Decorators\AskConfirmationDecorator.cs" />
+    <Compile Include="ScriptRunners\Decorators\ContextToParameterDecorator.cs" />
+    <Compile Include="ScriptRunners\Decorators\RequestInputParameterDecorator.cs" />
     <Compile Include="ScriptRunners\Decorators\FileLoggerDecorator.cs" />
     <Compile Include="ScriptRunners\DefaultScriptRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

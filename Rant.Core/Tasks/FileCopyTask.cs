@@ -17,7 +17,7 @@ namespace Rant.Core.Tasks
         public FileCopyTask() : base(TASK_NAME) { }
         public FileCopyTask(IDictionary<String, String> parameters) : base(TASK_NAME, parameters) { }
 
-        public override void Execute()
+        public override void Execute(IScriptExecutionContext context)
         {
             FileInfo sourceFile = new FileInfo(Parameters["source"]);
             FileInfo target = new FileInfo(Parameters["target"]);

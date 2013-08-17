@@ -24,6 +24,12 @@ namespace Rant.Core.ScriptRunners.Decorators
             this.newFileOnScriptStart = newFileOnScriptStart;
         }
 
+        public IScriptExecutionContext Context
+        {
+            get { return scriptRunner.Context; }
+            set { scriptRunner.Context = value; }
+        }
+
         public bool ScriptStarting(IScript script)
         {
             try
@@ -139,6 +145,16 @@ namespace Rant.Core.ScriptRunners.Decorators
             logFile.Flush();
             logFile.Close();
             logFile = null;
+        }
+
+        public object RequestInput(string prompt)
+        {
+            return scriptRunner.RequestInput(prompt);
+        }
+
+        public object RequestInput(string prompt, object defaultValue)
+        {
+            return scriptRunner.RequestInput(prompt, defaultValue);
         }
     }
 }

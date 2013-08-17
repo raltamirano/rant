@@ -7,9 +7,8 @@ namespace Rant.Common
 {
     /// <summary>
     /// RANT Script interface. A script is a collection of configured steps to be executed in order to acomplish a certain goal. 
-    /// A script implements <see cref="ITask" />, so a script could be used as a step on another script.
     /// </summary>
-    public interface IScript : ITask
+    public interface IScript
     {
         event Delegates.ScriptEvent ScriptStarting;
         event Delegates.ScriptFinishedEvent ScriptFinished;
@@ -18,6 +17,11 @@ namespace Rant.Common
         event Delegates.ScriptStepEvent StepSkipped;
         event Delegates.ScriptStepEvent StepFinished;
         event Delegates.ScriptStepError StepError;
+
+        /// <summary>
+        /// Script name.
+        /// </summary>
+        String Name { get; }
 
         /// <summary>
         /// Script description.
@@ -39,5 +43,10 @@ namespace Rant.Common
         /// </summary>
         /// <param name="runner"></param>
         void Execute(IScriptRunner runner);
+
+        /// <summary>
+        /// Indicates success on the last run of this script.
+        /// </summary>
+        bool LastRunWasSuccessful { get; }
     }
 }
